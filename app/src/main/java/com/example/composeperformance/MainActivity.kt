@@ -35,10 +35,7 @@ fun SnackDetail() {
 	Column(modifier = Modifier.fillMaxSize()) {
 		val scroll = rememberScrollState()
 
-		Title(scroll = scroll.value)
-//		RecommendedTitle1 {
-//			scroll.value
-//		}
+		Title(scroll.value)
 		Content(scroll)
 	}
 }
@@ -47,39 +44,39 @@ fun SnackDetail() {
 fun Title(scroll: Int) {
 	val offset = with(LocalDensity.current) { scroll.toDp() }
 
+
 	Column(modifier = Modifier.offset(y = offset)) {
 		Text("test")
 	}
-}
 
-@Composable
-fun RecommendedTitle1(scrollProvider: () -> Int) {
-	val offset = with(LocalDensity.current) { scrollProvider().toDp() }
+//	version 1
+//	val offset = with(LocalDensity.current) { scrollProvider().toDp() }
+//
+//	Column(modifier = Modifier.offset(y = offset)) {
+//
+//	}
 
-	Column(modifier = Modifier
-		.offset(y = offset)
-	) {
-		Text("test")
-	}
-}
-
-@Composable
-fun RecommendedTitle2(scrollProvider: () -> Int) {
-	Column(modifier = Modifier
-		.offset { IntOffset(x = 0, y = scrollProvider()) }
-	) {
-		Text("test")
-	}
+//  version 2
+//	Column(modifier = Modifier
+//		.offset { IntOffset(x = 0, y = scrollProvider()) }
+//	) {
+//		Text("test")
+//	}
 }
 
 @Composable
 fun Content(scroll: ScrollState) {
-	Column(modifier = Modifier.fillMaxSize().verticalScroll(scroll)) {
+
+	fun randomColor() = Color(Random.nextInt(256), Random.nextInt(256), Random.nextInt(256))
+
+	Column(modifier = Modifier
+		.fillMaxSize()
+		.verticalScroll(scroll)) {
 		repeat(10) {
 			Box(modifier = Modifier
 				.fillMaxWidth()
 				.height(300.dp)
-				.background(Color(Random.nextInt(256), Random.nextInt(256), Random.nextInt(256)))
+				.background(randomColor())
 			)
 		}
 	}
